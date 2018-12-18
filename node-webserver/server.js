@@ -1,6 +1,8 @@
 const express = require('express');
 const hbs = require('hbs'); //template for dynamic pages
 const fs = require('fs');
+
+const port = process.env.PORT || 3000;
 //create express app
 let app = express();
 
@@ -55,6 +57,6 @@ app.get('/bad', (req, res) => {
   })
 });
 //go to localhost:3000, log message that it's up
-app.listen(3000, () => {
-  console.log('Server is up on port 3000');
+app.listen(port, () => {
+  console.log(`Server is up on port ${port}`);
 });
