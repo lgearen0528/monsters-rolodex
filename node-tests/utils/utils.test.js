@@ -1,32 +1,38 @@
 const utils = require('./utils.js');
 const expect = require('expect');
+
+//describe makes output to commandline more readable!
+describe('Utils', () => {
+  describe('#add', () => {
+    it('Should add two numbers', () => {
+      let res = utils.add(33, 11);
+      expect(res).toBe(44).toBeA('number');
+    });
+    it('should asyncAdd two numbers', (done) =>{
+      utils.asyncAdd(4, 3, (sum) =>{
+        expect(sum).toBe(7).toBeA('number');
+        done();
+      });
+    });
+  });
+  describe('#square', () => {
+    it('Should square a number', () =>{
+      let res = utils.square(3);
+      expect(res).toBe(9).toBeA('number');
+    });
+    it('should async square a number', (done) => {
+      utils.asyncSquare(5, (result) =>{
+        expect(result).toBe(25).toBeA('number');
+        done();
+      });
+    });
+  });
+});
 //mjackson expect library filled with
 //different assertions!
 
 //behavior test driven
-it('Should add two numbers', () => {
-  let res = utils.add(33, 11);
-  expect(res).toBe(44).toBeA('number');
-});
 
-it('Should square a number', () =>{
-  let res = utils.square(3);
-  expect(res).toBe(9).toBeA('number');
-});
-
-it('should asyncAdd two numbers', (done) =>{
-  utils.asyncAdd(4, 3, (sum) =>{
-    expect(sum).toBe(7).toBeA('number');
-    done();
-  });
-});
-
-it('should async square a number', (done) => {
-  utils.asyncSquare(5, (result) =>{
-    expect(result).toBe(25).toBeA('number');
-    done();
-  });
-});
 
 // it('Should expect some values', () =>{
 //   // expect(12).toNotBe(11);
