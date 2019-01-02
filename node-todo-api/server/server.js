@@ -24,7 +24,8 @@ app.post('/todos', (req, res) => {
   })
 });
 
-
+//export for testing
+module.exports = {app};
 
 
 
