@@ -14,12 +14,14 @@ describe('generateMessage', () => {
 
 describe('generateLocationMessage', () => {
   it('should generate correct location Object', () => {
-    let from = 'Admin'
+    let from = 'Admin';
     let latitude = 1;
     let longitude = 1;
+    let url = `https://www.google.com/maps?q=${latitude},${longitude}`;
     let locationMessage = generateLocationMessage(from, latitude, longitude);
+    expect(typeof locationMessage.createdAt).toBe('number');
     expect(locationMessage.from).toBe(from);
-    expect(locationMessage.url).toBe(`https://www.google.com/maps?q=${latitude},${longitude}`);
+    expect(locationMessage.url).toBe(url);
 
   });
 });
