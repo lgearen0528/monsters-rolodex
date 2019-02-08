@@ -1,10 +1,12 @@
 let socket = io();
 
+//This method automatically scrolls user for new messages
+//unless user is scrolled up or looking at older messages
 function scrollToBottom(){
   //selectors
   let messages = jQuery('#messages');
   let newMessage = messages.children('li:last-child');
-  //Heights
+  //Heights for scrolling functionality
   let clientHeight = messages.prop('clientHeight');
   let scrollHeight = messages.prop('scrollHeight');
   let scrollTop = messages.prop('scrollTop');
@@ -15,7 +17,7 @@ function scrollToBottom(){
     messages.scrollTop(scrollHeight);
   }
 }
-
+//User connects or joins room
 socket.on('connect', function () {
   console.log('Connected to server.');
   let params = jQuery.deparam(window.location.search);
@@ -28,18 +30,9 @@ socket.on('connect', function () {
       console.log('No error');
     }
   });
-
-
-  // socket.emit('createEmail', {
-  //   to:'liem@example.com',
-  //   text:'hey this is missy'
-  // });
-  // socket.emit('createMessage', {
-  //   from: 'missy',
-  //   text: 'Hi there!'
-  // });
 });
 
+//user disconnects or leaves room
 socket.on('disconnect', function (){
   console.log('Disconnected from server.')
 });
@@ -53,10 +46,7 @@ socket.on('updateUserList', function(users){
   jQuery('#users').html(ol);
 });
 
-// socket.on('newEmail', function (email){
-//   console.log('New email', email);
-// });
-
+//new message submitted to server, displays it with timestamp
 socket.on('newMessage', function(message){
   let formattedTime = moment(message.createdAt).format('h:mm a');
   let template = jQuery('#message-template').html();
@@ -65,29 +55,20 @@ socket.on('newMessage', function(message){
     from: message.from,
     createdAt: formattedTime
   });
-
-  jQuery('#messages').append(html);
-  scrollToBottom();
-
-  // let formattedTime = moment(message.createdAt).format('h:mm a');
-  // let li = jQuery('<li></li>');
-  // li.text(`${message.from} ${formattedTime}: ${message.text}`);
-  //
-  // jQuery('#messages').append(li);
+  appendAndScroll(html);
 });
 
-
+//when user submits message, textbox is cleared after sent to server
 jQuery('#message-form').on('submit', function (e) {
   e.preventDefault();
   let messageTextbox = jQuery('[name=message]');
   socket.emit('createMessage', {
-    from: 'User',
     text: messageTextbox.val()
   }, function () {
     messageTextbox.val('');
   });
-
 });
+//user 'sends location'
 socket.on('newLocationMessage', function (message) {
   let formattedTime = moment(message.createdAt).format('h:mm a');
   let template = jQuery('#location-message-template').html();
@@ -96,15 +77,7 @@ socket.on('newLocationMessage', function (message) {
     createdAt: formattedTime,
     url: message.url
   });
-  jQuery('#messages').append(html);
-  scrollToBottom();
-  // let li = jQuery('<li></li>');
-  // let a = jQuery('<a target="_blank">My current location</a>');
-  // let formattedTime = moment(message.createdAt).format('h:mm a');
-  // li.text(`${message.from} ${formattedTime}: `);
-  // a.attr('href', message.url);
-  // li.append(a);
-  // jQuery('#messages').append(li);
+  appendAndScroll(html);
 });
 let locationButton = jQuery('#send-location');
 locationButton.on('click', function(){
@@ -123,3 +96,8 @@ locationButton.on('click', function(){
 
   });
 });
+
+function appendAndScroll(html){
+  jQuery('#messages').append(html);
+  scrollToBottom();
+};
