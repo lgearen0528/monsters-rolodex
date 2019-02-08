@@ -1,0 +1,6 @@
+Potential future updates:
+-Add private IM's
+-case-insensitive chat rooms
+-encrypt url after passing data
+-require unique usernames
+-list of current room names as select box
