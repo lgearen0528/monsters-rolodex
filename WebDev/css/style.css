@@ -1,0 +1,45 @@
+* {
+    text-align: right;
+}
+
+body{
+    background-image: url(backgoround.jpg);
+    background-size: cover;
+}
+
+h2,p {
+    color:#801515;
+    text-align: center;
+    border: 3px solid rgba(212, 106, 106, .23);
+    cursor: pointer;
+}
+
+p {
+    line-height: 50px;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 180%;
+    font-family: "Poiret One", cursive;
+}
+
+li{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.webtext{
+    border: 5px dashed green;
+}
+
+.active{
+    color: red;
+    text-align: right;
+}
+
+#div1{
+    background:rgba(0,0,255,0.2);
+}
+
+#div2{
+    background:rgba(255,0,0,0.2);
+}

@@ -1,0 +1,31 @@
+CSS Cheat Sheet
+
+Reference:
+*https://www.w3schools.com/cssref/css_selectors.asp
+*https://css-tricks.com/almanac/
+
+Cascading Style Sheets at the most basic level it indicates that the order of CSS rules matter. 
+
+
+.class
+#id
+*
+element
+element, element
+element1 element2 =>(select all element2 within element1)
+element1 > element2 =>(select element2 with only parent element1)
+element1 + element2 =>(select element2 that's exactly after element1)
+:hover
+:last-child
+:first-child
+!important (not recommended)
+
+
+What seletors win out in the cascade depends on:
+-Specificity
+-Importance
+-Source Order
+
+Misc. notes:
+css float should be used on images, float also grabs everything else and puts it in other dorection
+clear: both should help and reposition other elements (for example, footer )
